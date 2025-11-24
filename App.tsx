@@ -95,7 +95,7 @@ const App: React.FC = () => {
   // --- Render ---
 
   return (
-    <div className="min-h-screen bg-jp-bg flex flex-col font-sans max-w-lg mx-auto shadow-2xl overflow-hidden relative">
+    <div className="h-[100dvh] bg-[#fdfcf8] flex flex-col font-sans max-w-lg mx-auto shadow-2xl overflow-hidden relative">
       
       {/* Hero Image Area */}
       <div className="relative h-72 w-full overflow-hidden shrink-0">
@@ -107,9 +107,11 @@ const App: React.FC = () => {
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
         
         {/* Title */}
-        <div className="absolute bottom-4 left-6 text-white z-10">
+        <div className="absolute bottom-5 left-6 text-white z-10">
              <h1 className="text-3xl font-serif font-bold tracking-wide mb-1 text-shadow drop-shadow-md">福岡之旅</h1>
-             <p className="text-sm font-light opacity-90 tracking-widest text-shadow">2025.10.31 - 11.03</p>
+             <div className="flex items-center gap-2 opacity-90">
+                <span className="text-xs font-light tracking-[0.2em] border-t border-b border-white/50 py-0.5">2025.10.31 - 11.03</span>
+             </div>
         </div>
 
         {/* Dynamic Weather Widget */}
@@ -133,19 +135,19 @@ const App: React.FC = () => {
                     key={day.id} 
                     onClick={() => setActiveDayIndex(idx)}
                     className={`flex-1 min-w-[90px] py-3 px-1 flex flex-col items-center justify-center transition-all duration-300 relative group
-                        ${idx === activeDayIndex ? 'text-primary' : 'text-gray-400 hover:text-gray-600 hover:bg-gray-50'}
+                        ${idx === activeDayIndex ? 'text-primary bg-blue-50/30' : 'text-gray-400 hover:text-gray-600 hover:bg-gray-50'}
                     `}
                 >
                     <span className={`text-[10px] uppercase tracking-wider mb-0.5 ${idx === activeDayIndex ? 'font-bold' : 'font-medium'}`}>
                         {day.date.split('-').slice(1).join('/')}
                     </span>
-                    <span className={`text-sm font-serif ${idx === activeDayIndex ? 'font-bold' : 'font-medium'}`}>
+                    <span className={`text-sm font-serif ${idx === activeDayIndex ? 'font-bold text-gray-800' : 'font-medium'}`}>
                         {day.dayName.split(' ')[1] || day.dayName}
                     </span>
                     
                     {/* Active Indicator Line */}
                     {idx === activeDayIndex && (
-                        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary mx-4 rounded-t-full" />
+                        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-8 h-0.5 bg-primary rounded-full" />
                     )}
                 </button>
             ))}
@@ -153,7 +155,7 @@ const App: React.FC = () => {
       </div>
 
       {/* Main Content Area */}
-      <main className="flex-1 overflow-y-auto overflow-x-hidden p-4 pb-24 scroll-smooth no-scrollbar bg-jp-bg relative">
+      <main className="flex-1 overflow-y-auto overflow-x-hidden p-4 pb-40 scroll-smooth no-scrollbar bg-[#fdfcf8] relative">
         
         {showStats ? (
             <div className="animate-fadeIn">
@@ -165,17 +167,20 @@ const App: React.FC = () => {
             </div>
         ) : (
             <div className="space-y-3 animate-slideIn pb-4">
-                <div className="flex justify-between items-end mb-2 px-1">
-                    <h3 className="text-xl font-serif font-bold text-gray-800 tracking-tight">
-                        {activeDay.weather?.location} 行程
+                <div className="flex justify-between items-end mb-3 px-2">
+                    <h3 className="text-xl font-serif font-bold text-gray-800 tracking-tight flex items-center gap-2">
+                        {activeDay.weather?.location}
+                        <span className="text-xs font-sans font-normal text-gray-400 bg-white border border-gray-100 px-2 py-0.5 rounded-full">
+                            Day {activeDayIndex + 1}
+                        </span>
                     </h3>
-                    <span className="text-xs text-gray-500 font-medium bg-gray-100 px-2 py-0.5 rounded-full">
+                    <span className="text-xs text-gray-500 font-medium bg-white border border-gray-100 px-3 py-1 rounded-full shadow-sm">
                         {activeDay.weather?.condition}
                     </span>
                 </div>
 
                 {sortedActivities.length === 0 ? (
-                    <div className="text-center py-24 text-gray-300">
+                    <div className="text-center py-24 text-gray-300 border-2 border-dashed border-gray-100 rounded-3xl mx-2">
                         <p className="font-serif text-lg mb-2">本日無行程</p>
                         <p className="text-xs">點擊右下角 + 新增</p>
                     </div>
@@ -193,19 +198,19 @@ const App: React.FC = () => {
         )}
       </main>
 
-      {/* Floating Action Button - Minimalist */}
-      <div className="absolute bottom-8 right-6 z-20 flex flex-col gap-4">
+      {/* Floating Action Buttons - Cute Style */}
+      <div className="absolute bottom-8 right-6 z-20 flex flex-col gap-4 items-center">
         <button 
             onClick={() => setShowStats(!showStats)}
-            className="w-12 h-12 bg-white text-gray-500 rounded-full shadow-lg border border-gray-100 flex items-center justify-center hover:text-primary hover:scale-105 transition-all active:scale-95"
+            className="w-12 h-12 bg-white text-gray-500 rounded-full shadow-md hover:shadow-lg border border-gray-100 flex items-center justify-center hover:text-primary hover:-translate-y-1 transition-all active:scale-95 duration-300"
         >
             {showStats ? <Wallet size={20} /> : <BarChart3 size={20} />}
         </button>
         <button 
             onClick={handleAddClick}
-            className="w-14 h-14 bg-primary text-white rounded-full shadow-xl shadow-blue-900/20 flex items-center justify-center hover:bg-gray-800 hover:scale-105 transition-all active:scale-95"
+            className="w-14 h-14 bg-primary text-white rounded-full shadow-lg hover:shadow-xl shadow-primary/20 flex items-center justify-center hover:-translate-y-1 hover:scale-105 transition-all active:scale-95 duration-300 group"
         >
-            <Plus size={26} strokeWidth={2} />
+            <Plus size={28} strokeWidth={2.5} className="group-hover:rotate-90 transition-transform duration-300" />
         </button>
       </div>
 
