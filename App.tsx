@@ -97,8 +97,8 @@ const App: React.FC = () => {
   return (
     <div className="h-[100dvh] bg-[#fdfcf8] flex flex-col font-sans max-w-lg mx-auto shadow-2xl overflow-hidden relative">
       
-      {/* Hero Image Area */}
-      <div className="relative h-72 w-full overflow-hidden shrink-0">
+      {/* Hero Image Area - Takes 30% of height */}
+      <div className="relative h-[30%] w-full overflow-hidden shrink-0">
         <img 
             src="https://i.meee.com.tw/XsGdU5h.png" 
             alt="Fukuoka Trip Cover" 
@@ -108,7 +108,7 @@ const App: React.FC = () => {
         
         {/* Title */}
         <div className="absolute bottom-5 left-6 text-white z-10">
-             <h1 className="text-3xl font-serif font-bold tracking-wide mb-1 text-shadow drop-shadow-md">福岡之旅</h1>
+             <h1 className="text-3xl font-bold tracking-wide mb-1 text-shadow drop-shadow-md">福岡之旅</h1>
              <div className="flex items-center gap-2 opacity-90">
                 <span className="text-xs font-light tracking-[0.2em] border-t border-b border-white/50 py-0.5">2025.10.31 - 11.03</span>
              </div>
@@ -128,7 +128,7 @@ const App: React.FC = () => {
       </div>
 
       {/* Day Navigation (Direct Selection) */}
-      <div className="bg-white sticky top-0 z-30 shadow-sm border-b border-gray-100 overflow-x-auto no-scrollbar">
+      <div className="bg-white sticky top-0 z-30 shadow-sm border-b border-gray-100 overflow-x-auto no-scrollbar shrink-0">
         <div className="flex w-full">
             {itinerary.map((day, idx) => (
                 <button 
@@ -141,7 +141,7 @@ const App: React.FC = () => {
                     <span className={`text-[10px] uppercase tracking-wider mb-0.5 ${idx === activeDayIndex ? 'font-bold' : 'font-medium'}`}>
                         {day.date.split('-').slice(1).join('/')}
                     </span>
-                    <span className={`text-sm font-serif ${idx === activeDayIndex ? 'font-bold text-gray-800' : 'font-medium'}`}>
+                    <span className={`text-sm ${idx === activeDayIndex ? 'font-bold text-gray-800' : 'font-medium'}`}>
                         {day.dayName.split(' ')[1] || day.dayName}
                     </span>
                     
@@ -154,13 +154,13 @@ const App: React.FC = () => {
         </div>
       </div>
 
-      {/* Main Content Area */}
+      {/* Main Content Area - Fills the rest (approx 70% minus Nav bar) */}
       <main className="flex-1 overflow-y-auto overflow-x-hidden p-4 pb-40 scroll-smooth no-scrollbar bg-[#fdfcf8] relative">
         
         {showStats ? (
             <div className="animate-fadeIn">
                 <div className="flex items-center justify-between mb-4 px-2">
-                    <h2 className="text-lg font-serif font-bold text-gray-800">旅行錢包</h2>
+                    <h2 className="text-lg font-bold text-gray-800">旅行錢包</h2>
                     <button onClick={() => setShowStats(false)} className="text-primary text-sm font-medium hover:underline">返回行程</button>
                 </div>
                 <ExpenseChart activities={allActivities} />
@@ -168,9 +168,9 @@ const App: React.FC = () => {
         ) : (
             <div className="space-y-3 animate-slideIn pb-4">
                 <div className="flex justify-between items-end mb-3 px-2">
-                    <h3 className="text-xl font-serif font-bold text-gray-800 tracking-tight flex items-center gap-2">
+                    <h3 className="text-xl font-bold text-gray-800 tracking-tight flex items-center gap-2">
                         {activeDay.weather?.location}
-                        <span className="text-xs font-sans font-normal text-gray-400 bg-white border border-gray-100 px-2 py-0.5 rounded-full">
+                        <span className="text-xs font-normal text-gray-400 bg-white border border-gray-100 px-2 py-0.5 rounded-full">
                             Day {activeDayIndex + 1}
                         </span>
                     </h3>
@@ -181,7 +181,7 @@ const App: React.FC = () => {
 
                 {sortedActivities.length === 0 ? (
                     <div className="text-center py-24 text-gray-300 border-2 border-dashed border-gray-100 rounded-3xl mx-2">
-                        <p className="font-serif text-lg mb-2">本日無行程</p>
+                        <p className="text-lg mb-2">本日無行程</p>
                         <p className="text-xs">點擊右下角 + 新增</p>
                     </div>
                 ) : (
