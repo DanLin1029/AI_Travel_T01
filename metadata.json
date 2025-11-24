@@ -1,6 +1,6 @@
 {
-  "name": "Fukuoka Trip Planner 2024",
-  "description": "An interactive, mobile-first travel itinerary app for a trip to Fukuoka (Dec 5 - Dec 8). Features expense tracking, Google Maps integration, and AI travel tips.",
+  "name": "Fukuoka Trip Planner 2025",
+  "description": "An interactive, mobile-first travel itinerary app for a trip to Fukuoka (Oct 31 - Nov 3). Features expense tracking, Google Maps integration, and AI travel tips.",
   "requestFramePermissions": [
     "geolocation"
   ]

@@ -100,7 +100,7 @@ const App: React.FC = () => {
       {/* Hero Image Area */}
       <div className="relative h-72 w-full overflow-hidden shrink-0">
         <img 
-            src="https://meee.com.tw/XsGdU5h" 
+            src="https://i.meee.com.tw/XsGdU5h.png" 
             alt="Fukuoka Trip Cover" 
             className="w-full h-full object-cover object-center opacity-95 hover:scale-105 transition-transform duration-1000"
         />
@@ -109,17 +109,17 @@ const App: React.FC = () => {
         {/* Title */}
         <div className="absolute bottom-4 left-6 text-white z-10">
              <h1 className="text-3xl font-serif font-bold tracking-wide mb-1 text-shadow drop-shadow-md">福岡之旅</h1>
-             <p className="text-sm font-light opacity-90 tracking-widest text-shadow">2024.12.05 - 12.08</p>
+             <p className="text-sm font-light opacity-90 tracking-widest text-shadow">2025.10.31 - 11.03</p>
         </div>
 
         {/* Dynamic Weather Widget */}
         <div className="absolute top-4 right-4 z-10 flex flex-col items-end">
-            <div className="bg-white/20 backdrop-blur-md px-4 py-1.5 rounded-full text-white text-sm font-medium flex items-center gap-2 border border-white/30 shadow-lg mb-1">
+            <div className="bg-gray-800/85 backdrop-blur-md px-4 py-1.5 rounded-full text-white text-sm font-medium flex items-center gap-2 border border-gray-700/50 shadow-lg mb-1">
                 <span>{activeDay.weather?.location || '福岡'}</span>
                 <span className="text-lg">{activeDay.weather?.icon || '⛅'}</span>
                 <span>{activeDay.weather?.temp || 14}°C</span>
             </div>
-            <div className="bg-black/30 backdrop-blur-sm px-2 py-1 rounded-md text-white/90 text-[10px] text-right max-w-[150px]">
+            <div className="bg-black/40 backdrop-blur-sm px-2 py-1 rounded-md text-white/90 text-[10px] text-right max-w-[150px]">
                 {activeDay.weather?.clothing || '天氣舒適'}
             </div>
         </div>

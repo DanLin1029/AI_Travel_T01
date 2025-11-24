@@ -6,14 +6,14 @@ const uid = () => Math.random().toString(36).substr(2, 9);
 export const INITIAL_ITINERARY: DaySchedule[] = [
   {
     id: 'day1',
-    date: '2024-12-05',
-    dayName: '12/05 (五)',
+    date: '2025-10-31',
+    dayName: '10/31 (五)',
     weather: {
       location: '博多',
-      temp: 14,
-      condition: '多雲時晴',
-      icon: '⛅',
-      clothing: '早晚偏涼，建議穿薄外套'
+      temp: 19,
+      condition: '秋高氣爽',
+      icon: '🌤️',
+      clothing: '天氣舒適，早晚微涼'
     },
     activities: [
       {
@@ -119,14 +119,14 @@ export const INITIAL_ITINERARY: DaySchedule[] = [
   },
   {
     id: 'day2',
-    date: '2024-12-06',
-    dayName: '12/06 (六)',
+    date: '2025-11-01',
+    dayName: '11/01 (六)',
     weather: {
       location: '由布院',
-      temp: 9,
-      condition: '晴朗乾燥',
-      icon: '☀️',
-      clothing: '山區較冷，務必帶圍巾/發熱衣'
+      temp: 16,
+      condition: '晴時多雲',
+      icon: '⛅',
+      clothing: '山區涼爽，建議薄外套'
     },
     activities: [
       {
@@ -221,14 +221,14 @@ export const INITIAL_ITINERARY: DaySchedule[] = [
   },
   {
     id: 'day3',
-    date: '2024-12-07',
-    dayName: '12/07 (日)',
+    date: '2025-11-02',
+    dayName: '11/02 (日)',
     weather: {
       location: '別府',
-      temp: 11,
-      condition: '陰有雨',
-      icon: '🌧️',
-      clothing: '可能下雨，請攜帶雨具'
+      temp: 17,
+      condition: '多雲',
+      icon: '☁️',
+      clothing: '氣候宜人，適合戶外活動'
     },
     activities: [
       {
@@ -312,14 +312,14 @@ export const INITIAL_ITINERARY: DaySchedule[] = [
   },
   {
     id: 'day4',
-    date: '2024-12-08',
-    dayName: '12/08 (一)',
+    date: '2025-11-03',
+    dayName: '11/03 (一)',
     weather: {
       location: '博多',
-      temp: 15,
-      condition: '多雲',
-      icon: '☁️',
-      clothing: '舒適的鞋子，適合逛街'
+      temp: 20,
+      condition: '晴朗',
+      icon: '☀️',
+      clothing: '陽光普照，適合逛街'
     },
     activities: [
       {

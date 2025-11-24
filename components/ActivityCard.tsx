@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { Activity, Category } from '../types';
 import { MapPin, Utensils, Train, ShoppingBag, Bed, CheckCircle, Circle } from 'lucide-react';
 
@@ -37,46 +37,21 @@ const CategoryStyles: Record<Category, string> = {
 };
 
 const ActivityCard: React.FC<Props> = ({ activity, onToggleComplete, onEdit }) => {
-  // Fix: Use ReturnType<typeof setTimeout> instead of NodeJS.Timeout to ensure compatibility when NodeJS types are missing
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const startPress = () => {
-    timerRef.current = setTimeout(() => {
-      if (navigator.vibrate) navigator.vibrate(50); // Haptic feedback
-      onEdit(activity);
-    }, 3000); // 3 seconds
-  };
-
-  const cancelPress = () => {
-    if (timerRef.current) {
-      clearTimeout(timerRef.current);
-      timerRef.current = null;
-    }
-  };
-
   const handleMapClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    // Cancel press if map button is clicked to avoid conflict
-    cancelPress();
     const query = encodeURIComponent(activity.location);
     window.open(`https://www.google.com/maps/search/?api=1&query=${query}`, '_blank');
   };
 
   const handleCheckboxClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    cancelPress();
     onToggleComplete(activity.id);
   };
 
   return (
     <div 
         className={`relative mb-3 rounded-lg border border-gray-100 p-4 transition-all duration-300 select-none ${activity.isCompleted ? 'opacity-50 bg-gray-50 grayscale' : 'bg-white hover:shadow-zen active:scale-[0.99]'}`}
-        onMouseDown={startPress}
-        onMouseUp={cancelPress}
-        onMouseLeave={cancelPress}
-        onTouchStart={startPress}
-        onTouchEnd={cancelPress}
-        onTouchMove={cancelPress} // Cancel if scrolling
+        onDoubleClick={() => onEdit(activity)}
     >
       <div className="flex items-start gap-4 pointer-events-none"> {/* Disable pointer events on inner structure to simplify touch logic, re-enable on interactive elements */}
         {/* Time & Vertical Line */}
@@ -130,7 +105,6 @@ const ActivityCard: React.FC<Props> = ({ activity, onToggleComplete, onEdit }) =
           <MapPin size={12} />
           地圖
         </button>
-        {/* Edit button removed. Long press card to edit. */}
       </div>
     </div>
   );
