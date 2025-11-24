@@ -31,26 +31,3 @@ export const getTravelTip = async (activity: Activity): Promise<string> => {
     return "暫時無法獲取建議。";
   }
 };
-
-export const analyzeExpenses = async (totalJPY: number, activities: Activity[]): Promise<string> => {
-    if (!ai) return "未設定 API Key。";
-    
-    try {
-        const prompt = `
-            我正在分析我的福岡旅遊支出。
-            目前日幣總花費: ${totalJPY} JPY。
-            以下是活動明細: ${JSON.stringify(activities.map(a => ({t: a.title, c: a.cost})))}。
-            
-            請用繁體中文給我一句幽默、諷刺但又有點建設性的評語，關於我的花錢習慣。一句話就好。
-        `;
-        
-         const response = await ai.models.generateContent({
-            model: 'gemini-2.5-flash',
-            contents: prompt,
-        });
-
-        return response.text || "花費看起來還行。";
-    } catch (e) {
-        return "計算完成。";
-    }
-}

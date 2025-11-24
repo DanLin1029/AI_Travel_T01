@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { Activity, Category } from '../types';
-import { MapPin, Utensils, Train, ShoppingBag, Bed, Sparkles, CheckCircle, Circle } from 'lucide-react';
+import { MapPin, Utensils, Train, ShoppingBag, Bed, CheckCircle, Circle } from 'lucide-react';
 
 interface Props {
   activity: Activity;
@@ -14,7 +14,7 @@ const CategoryIcons: Record<Category, React.ReactNode> = {
   [Category.Sightseeing]: <MapPin size={16} />,
   [Category.Shopping]: <ShoppingBag size={16} />,
   [Category.Accommodation]: <Bed size={16} />,
-  [Category.Flexible]: <Sparkles size={16} />,
+  [Category.Flexible]: <Circle size={16} />, // Fallback icon
 };
 
 const CategoryLabels: Record<Category, string> = {

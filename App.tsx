@@ -4,8 +4,7 @@ import { INITIAL_ITINERARY } from './constants';
 import ActivityCard from './components/ActivityCard';
 import EditModal from './components/EditModal';
 import ExpenseChart from './components/ExpenseChart';
-import { analyzeExpenses } from './services/geminiService';
-import { Plus, BarChart3, Wallet, Sparkles } from 'lucide-react';
+import { Plus, BarChart3, Wallet } from 'lucide-react';
 
 const App: React.FC = () => {
   // --- State ---
@@ -26,7 +25,6 @@ const App: React.FC = () => {
   const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [editingActivity, setEditingActivity] = useState<Activity | null>(null);
   const [showStats, setShowStats] = useState(false);
-  const [aiAnalysis, setAiAnalysis] = useState<string>("");
 
   // --- Persistence ---
   useEffect(() => {
@@ -94,26 +92,17 @@ const App: React.FC = () => {
     setEditModalOpen(true);
   };
 
-  const handleAnalyzeExpenses = async () => {
-      setAiAnalysis("AI 正在分析您的消費習慣...");
-      const totalJPY = allActivities
-        .filter(a => a.currency === 'JPY')
-        .reduce((sum, a) => sum + a.cost, 0);
-      const result = await analyzeExpenses(totalJPY, allActivities);
-      setAiAnalysis(result);
-  }
-
   // --- Render ---
 
   return (
     <div className="min-h-screen bg-jp-bg flex flex-col font-sans max-w-lg mx-auto shadow-2xl overflow-hidden relative">
       
       {/* Hero Image Area */}
-      <div className="relative h-60 w-full overflow-hidden shrink-0">
+      <div className="relative h-72 w-full overflow-hidden shrink-0">
         <img 
-            src="https://images.unsplash.com/photo-1605218427368-35b86e288a87?q=80&w=2000&auto=format&fit=crop" 
-            alt="Fukuoka Night View" 
-            className="w-full h-full object-cover opacity-95 hover:scale-105 transition-transform duration-1000"
+            src="https://meee.com.tw/XsGdU5h" 
+            alt="Fukuoka Trip Cover" 
+            className="w-full h-full object-cover object-center opacity-95 hover:scale-105 transition-transform duration-1000"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
         
@@ -173,19 +162,6 @@ const App: React.FC = () => {
                     <button onClick={() => setShowStats(false)} className="text-primary text-sm font-medium hover:underline">返回行程</button>
                 </div>
                 <ExpenseChart activities={allActivities} />
-                
-                <div className="mt-6 bg-white p-6 rounded-lg border border-gray-100 shadow-zen relative overflow-hidden">
-                    <div className="absolute top-0 left-0 w-1 h-full bg-accent"></div>
-                    <div className="flex justify-between items-center mb-3">
-                        <h3 className="font-bold text-gray-700 flex items-center gap-2 text-sm">
-                            <Sparkles size={16} className="text-accent" /> AI 記帳助手
-                        </h3>
-                        <button onClick={handleAnalyzeExpenses} className="text-xs bg-gray-100 text-gray-600 px-3 py-1 rounded hover:bg-gray-200 transition-colors">開始分析</button>
-                    </div>
-                    <p className="text-sm text-gray-600 leading-relaxed italic">
-                        {aiAnalysis || "點擊分析按鈕，看看 AI 對您的消費有什麼評價..."}
-                    </p>
-                </div>
             </div>
         ) : (
             <div className="space-y-3 animate-slideIn pb-4">
