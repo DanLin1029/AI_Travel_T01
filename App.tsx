@@ -26,6 +26,10 @@ const App: React.FC = () => {
   const [editingActivity, setEditingActivity] = useState<Activity | null>(null);
   const [showStats, setShowStats] = useState(false);
 
+  // Swipe state
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+
   // --- Persistence ---
   useEffect(() => {
     localStorage.setItem('fukuoka_trip_data', JSON.stringify(itinerary));
@@ -92,6 +96,40 @@ const App: React.FC = () => {
     setEditModalOpen(true);
   };
 
+  // --- Swipe Handlers ---
+  const minSwipeDistance = 50;
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe) {
+      // Next Day
+      if (activeDayIndex < itinerary.length - 1) {
+        setActiveDayIndex(prev => prev + 1);
+      }
+    }
+
+    if (isRightSwipe) {
+      // Prev Day
+      if (activeDayIndex > 0) {
+        setActiveDayIndex(prev => prev - 1);
+      }
+    }
+  };
+
   // --- Render ---
 
   return (
@@ -155,7 +193,12 @@ const App: React.FC = () => {
       </div>
 
       {/* Main Content Area - Fills the rest (approx 70% minus Nav bar) */}
-      <main className="flex-1 overflow-y-auto overflow-x-hidden p-4 pb-40 scroll-smooth no-scrollbar bg-[#fdfcf8] relative">
+      <main 
+        className="flex-1 overflow-y-auto overflow-x-hidden p-4 pb-40 scroll-smooth no-scrollbar bg-[#fdfcf8] relative touch-pan-y"
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
+      >
         
         {showStats ? (
             <div className="animate-fadeIn">
@@ -166,7 +209,7 @@ const App: React.FC = () => {
                 <ExpenseChart activities={allActivities} />
             </div>
         ) : (
-            <div className="space-y-3 animate-slideIn pb-4">
+            <div key={activeDayIndex} className="space-y-3 animate-slideIn pb-4">
                 <div className="flex justify-between items-end mb-3 px-2">
                     <h3 className="text-xl font-bold text-gray-800 tracking-tight flex items-center gap-2">
                         {activeDay.weather?.location}
